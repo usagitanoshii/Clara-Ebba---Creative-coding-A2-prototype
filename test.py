@@ -29,13 +29,13 @@ class Player(pygame.sprite.Sprite):
          self.rect.topleft = [pos_x,pos_y]
          
     def update(self):
-        self.current_sprite += 1 
+        self.current_sprite += 0.2
         
         if self.current_sprite >= len(self.sprites):
             self.current_sprite = 0
-            
+        print(f"current sprite {self.current_sprite}")  
         
-        self.image = self.sprites[self.current_sprite] 
+        self.image = self.sprites[int(self.current_sprite)]
  
         
 #creating the sprites and groups! 
