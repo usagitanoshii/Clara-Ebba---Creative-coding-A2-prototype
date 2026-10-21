@@ -50,6 +50,7 @@ stars_2 = pygame.image.load("game stars.png").convert_alpha()
 clouds = pygame.image.load("game clouds.png").convert_alpha()
 boarder = pygame.image.load("game boarders.png").convert_alpha()
 pipi = pygame.image.load("game pipi.png").convert_alpha()
+cloud_cart = pygame.image.load("cloud cart.png").convert_alpha()
 
 running = True 
 clock = pygame.time.Clock()
@@ -60,6 +61,7 @@ while running:
     screen.blit(gamebackground1, (0,0))
     screen.blit(stars_1, (stars1x,0))
     screen.blit(stars_2, (stars2x, 0))
+    screen.blit(cloud_cart, (0,0))
     screen.blit(clouds, (0,0))
     screen.blit(boarder, (0,0))
     moving_sprites.draw(screen)
