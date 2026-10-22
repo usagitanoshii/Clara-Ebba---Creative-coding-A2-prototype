@@ -36,13 +36,37 @@ class Player(pygame.sprite.Sprite):
         print(f"current sprite {self.current_sprite}")  
         
         self.image = self.sprites[int(self.current_sprite)]
- 
-        
-#creating the sprites and groups! 
+                   
+#creating the sprites and groups (rainbow)! 
 moving_sprites = pygame.sprite.Group()
 player = Player (0,-6)
 moving_sprites.add(player)          
-                             
+
+#window sprites/ animation! 
+class Window(pygame.sprtite.Sprite): 
+    def __init__(self,pos_x,pos_y):
+             super().__init__()
+             self.sprites = [] 
+             self.sprites.append(pygame.image.load('window 1.png'))
+             self.sprites.append(pygame.image.load('window 2.png'))
+             self.sprites.append(pygame.image.load('window 3.png'))
+             self.sprites.append(pygame.image.load('window 4.png'))
+             self.sprites.append(pygame.image.load('window 5.png'))
+             
+    def update(self):
+        self.current_sprite += 0.2
+        
+        if self.current_sprite >= len(self.sprites):
+            self.current_sprite = 0
+        print(f"current sprite {self.current_sprite}")
+        
+        self.image = self.sprites[int(self.current_sprite)]    
+            
+#creating the sprites and the groups (window)!
+moving_sprites = pygame.sprite.Group()
+window = Window (0,0)
+moving_sprites.add(window)                                                                
+
 #loading images! 
 gamebackground1 = pygame.image.load("game bg 1.png").convert() 
 stars_1 = pygame.image.load("game stars.png").convert_alpha()
