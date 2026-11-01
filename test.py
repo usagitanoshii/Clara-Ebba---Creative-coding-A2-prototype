@@ -43,7 +43,7 @@ player = Player (0,-6)
 moving_sprites.add(player)          
 
 #window sprites/ animation! 
-class Window(pygame.sprtite.Sprite): 
+class Window(pygame.sprite.Sprite): 
     def __init__(self,pos_x,pos_y):
              super().__init__()
              self.sprites = [] 
@@ -52,9 +52,14 @@ class Window(pygame.sprtite.Sprite):
              self.sprites.append(pygame.image.load('window 3.png'))
              self.sprites.append(pygame.image.load('window 4.png'))
              self.sprites.append(pygame.image.load('window 5.png'))
+             self.current_sprite = 0 
+             self.image = self.sprites[self.current_sprite]
+             
+             self.rect = self.image.get_rect()
+             self.rect.topleft = [pos_x,pos_y]
              
     def update(self):
-        self.current_sprite += 0.2
+        self.current_sprite += 0.15
         
         if self.current_sprite >= len(self.sprites):
             self.current_sprite = 0
@@ -63,8 +68,7 @@ class Window(pygame.sprtite.Sprite):
         self.image = self.sprites[int(self.current_sprite)]    
             
 #creating the sprites and the groups (window)!
-moving_sprites = pygame.sprite.Group()
-window = Window (0,0)
+window = Window(0,0)
 moving_sprites.add(window)                                                                
 
 #loading images! 
