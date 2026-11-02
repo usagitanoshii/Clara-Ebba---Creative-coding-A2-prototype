@@ -2,14 +2,17 @@ import pygame
 
 pygame.init()
 
+
 #global variables for width and height!
 WINDOW_WIDTH = 640 
 WINDOW_HEIGHT = 480
 screen = pygame.display.set_mode((640, 480)) 
 
+
 #x positions for stars 1 and 2!
 stars1x = 0
 stars2x = 640
+
 
 #rainbow sprites/ animation!
 class Player(pygame.sprite.Sprite):
@@ -36,11 +39,13 @@ class Player(pygame.sprite.Sprite):
         print(f"current sprite {self.current_sprite}")  
         
         self.image = self.sprites[int(self.current_sprite)]
+
                    
 #creating the sprites and groups (rainbow)! 
 moving_sprites = pygame.sprite.Group()
 player = Player (0,-6)
 moving_sprites.add(player)          
+
 
 #window sprites/ animation! 
 class Window(pygame.sprite.Sprite): 
@@ -66,10 +71,24 @@ class Window(pygame.sprite.Sprite):
         print(f"current sprite {self.current_sprite}")
         
         self.image = self.sprites[int(self.current_sprite)]    
+
             
-#creating the sprites and the groups (window)!
+#creating the sprites and the groups (window 2)!
 window = Window(0,0)
-moving_sprites.add(window)                                                                
+window2 = Window(1,115)
+window3 = Window(105,115)
+window4 = Window(-99,115)
+window5 = Window(0,115)
+window6 = Window(105,0)
+window7 = Window(-99,0) 
+moving_sprites.add(window) 
+moving_sprites.add(window2)                                                               
+moving_sprites.add(window3)
+moving_sprites.add(window4)
+moving_sprites.add(window5)
+moving_sprites.add(window6)
+moving_sprites.add(window7)
+
 
 #loading images! 
 gamebackground1 = pygame.image.load("game bg 1.png").convert() 
@@ -82,6 +101,7 @@ cloud_cart = pygame.image.load("cloud cart.png").convert_alpha()
 
 running = True 
 clock = pygame.time.Clock()
+
 
 #game loop!
 while running: 
