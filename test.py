@@ -53,10 +53,10 @@ class Window(pygame.sprite.Sprite):
              super().__init__()
              self.sprites = [] 
              self.sprites.append(pygame.image.load('window 1.png'))
-             self.sprites.append(pygame.image.load('window 2.png'))
-             self.sprites.append(pygame.image.load('window 3.png'))
-             self.sprites.append(pygame.image.load('window 4.png'))
-             self.sprites.append(pygame.image.load('window 5.png'))
+             self.sprites.append(pygame.image.load('fish window 1.png'))
+             self.sprites.append(pygame.image.load('fish window 2.png'))
+             self.sprites.append(pygame.image.load('fish window 3.png'))
+             self.sprites.append(pygame.image.load('fish window 4.png'))
              self.current_sprite = 0 
              self.image = self.sprites[self.current_sprite]
              
@@ -74,20 +74,21 @@ class Window(pygame.sprite.Sprite):
 
             
 #creating the sprites and the groups (window 2)!
-window = Window(0,0)
-window2 = Window(1,115)
-window3 = Window(105,115)
-window4 = Window(-99,115)
-window5 = Window(0,115)
-window6 = Window(105,0)
-window7 = Window(-99,0) 
-moving_sprites.add(window) 
-moving_sprites.add(window2)                                                               
+closed_window = Window(0,0)
+window1 = Window(105,115)
+window2 = Window(-99,115)
+window3 = Window(0,115)
+window4 = Window(105,0)
+window5 = Window(-99,0) 
+moving_sprites.add(closed_window)                                                               
+moving_sprites.add(window1)
+moving_sprites.add(window2)
 moving_sprites.add(window3)
 moving_sprites.add(window4)
 moving_sprites.add(window5)
-moving_sprites.add(window6)
-moving_sprites.add(window7)
+
+#cross hair pew pew
+
 
 
 #loading images! 
@@ -98,6 +99,7 @@ clouds = pygame.image.load("game clouds.png").convert_alpha()
 boarder = pygame.image.load("game boarders.png").convert_alpha()
 pipi = pygame.image.load("game pipi.png").convert_alpha()
 cloud_cart = pygame.image.load("cloud cart.png").convert_alpha()
+cross_hair = pygame.image.load("cross hair.png").convert_alpha()
 
 running = True 
 clock = pygame.time.Clock()
@@ -113,6 +115,7 @@ while running:
     screen.blit(clouds, (0,0))
     screen.blit(boarder, (0,0))
     moving_sprites.draw(screen)
+    screen.blit(cross_hair, (225,115))
 
     screen.blit(pipi, (0,0))
     
