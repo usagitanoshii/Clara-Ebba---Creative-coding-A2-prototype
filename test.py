@@ -87,9 +87,19 @@ moving_sprites.add(window3)
 moving_sprites.add(window4)
 moving_sprites.add(window5)
 
-#cross hair pew pew
+#cross hair controls
+rows, cols = (2,3)
 
+cross_pos = [[0 for i in range(cols)] for j in range(rows)]
+cross_pos[0][0] = (-99,0)
+cross_pos[1][0] = (-99,115)
+cross_pos[0][1] = (0,0)
+cross_pos[1][1] = (0,115) 
+cross_pos[0][2] = (105,0)
+cross_pos[1][2] = (105,115)
 
+row = 1
+col = 1
 
 #loading images! 
 gamebackground1 = pygame.image.load("game bg 1.png").convert() 
@@ -115,8 +125,7 @@ while running:
     screen.blit(clouds, (0,0))
     screen.blit(boarder, (0,0))
     moving_sprites.draw(screen)
-    screen.blit(cross_hair, (250,115))
-
+    screen.blit(cross_hair, cross_pos[row][col])          
     screen.blit(pipi, (0,0))
     
     stars1x -= 3
@@ -133,6 +142,27 @@ while running:
     for event in pygame.event.get():
         if event.type ==pygame.QUIT:
             running = False
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            if col != 0:
+                col -= 1
+        
+        if keys[pygame.K_UP]:
+            if row != 0:
+                row -= 1
+            
+        if keys[pygame.K_RIGHT]:
+            if col != 2:
+                col += 1
+            
+        if keys[pygame.K_DOWN]:
+            if row != 1:
+                row += 1
+        
+            
+         
+            
+
     pygame.display.flip()
         
     moving_sprites.update()    
