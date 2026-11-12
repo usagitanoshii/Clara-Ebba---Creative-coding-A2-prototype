@@ -115,7 +115,7 @@ while running:
     screen.blit(clouds, (0,0))
     screen.blit(boarder, (0,0))
     moving_sprites.draw(screen)
-    screen.blit(cross_hair, (225,115))
+    screen.blit(cross_hair, (250,115))
 
     screen.blit(pipi, (0,0))
     
