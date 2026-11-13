@@ -13,6 +13,36 @@ screen = pygame.display.set_mode((640, 480))
 stars1x = 0
 stars2x = 640
 
+#create explosion class
+class Explosion(pygame.sprite.Sprite): 
+    def __init__(self, pos): 
+        pygame.sprite.Sprite.__init__(self)
+        self.images = []
+        for num in range(0, 17):
+            img = pygame.image.load(f"img/frame_{num}.png")
+            img = pygame.transform.scale(img, (90,90))
+            self.images.append(img)
+        self.index = 0 
+        self.image = self.images[self.index]
+        self.rect = self.image.get_rect()
+        self.rect.topleft = pos 
+        self.counter = 0 
+        
+    def update(self):
+        explosion_speed = 4 
+        #update explosion animation 
+        self.counter += 1
+        
+        if self.counter >= explosion_speed and self.index <len(self.images) - 1: 
+            self.counter = 0
+            self.index += 1
+            self.image = self.images[self.index]
+            
+        #if animation is complete, reset animation index
+        if self.index >= len(self.images) - 1 and self.counter >= explosion_speed:
+            self.kill()
+
+explosion_group = pygame.sprite.Group() 
 
 #rainbow sprites/ animation!
 class Player(pygame.sprite.Sprite):
@@ -158,10 +188,14 @@ while running:
         if keys[pygame.K_DOWN]:
             if row != 1:
                 row += 1
-        
-            
+                
+        if keys[pygame.K_SPACE]:
+            explosion = Explosion(cross_pos[row][col])
+            explosion_group.add(explosion)          
          
-            
+     #draw background (explosion)
+    explosion_group.draw(screen)
+    explosion_group.update()           
 
     pygame.display.flip()
         
