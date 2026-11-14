@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init()
 
@@ -18,9 +19,9 @@ class Explosion(pygame.sprite.Sprite):
     def __init__(self, pos): 
         pygame.sprite.Sprite.__init__(self)
         self.images = []
-        for num in range(0, 17):
+        for num in range(9, 17):
             img = pygame.image.load(f"img/frame_{num}.png")
-            img = pygame.transform.scale(img, (90,90))
+            img = pygame.transform.scale(img, (190,190))
             self.images.append(img)
         self.index = 0 
         self.image = self.images[self.index]
@@ -29,7 +30,7 @@ class Explosion(pygame.sprite.Sprite):
         self.counter = 0 
         
     def update(self):
-        explosion_speed = 4 
+        explosion_speed = 5
         #update explosion animation 
         self.counter += 1
         
@@ -90,17 +91,35 @@ class Window(pygame.sprite.Sprite):
              self.current_sprite = 0 
              self.image = self.sprites[self.current_sprite]
              
+             #reload for windows (variables)
+             self.reload = random.randint(1,100)
+             self.open = False
+             self.shot = False
+             self.anim_done = True
+            
              self.rect = self.image.get_rect()
              self.rect.topleft = [pos_x,pos_y]
              
     def update(self):
-        self.current_sprite += 0.15
+        opening_time = random.randint(1, 100)
         
-        if self.current_sprite >= len(self.sprites):
-            self.current_sprite = 0
+        if opening_time == self.reload:
+            if self.open != True:
+                self.open = True
+                self.anim_done = False
+                
+        if self.open == True:
+            if self.anim_done != True: 
+                self.current_sprite += 0.15
+                if self.current_sprite >= len(self.sprites):
+                    self.current_sprite = 4
+                    self.anim_done = True
         print(f"current sprite {self.current_sprite}")
         
-        self.image = self.sprites[int(self.current_sprite)]    
+        self.image = self.sprites[int(self.current_sprite)]
+    def shot(self):
+        self.open = False
+        self.current_sprite = 0
 
             
 #creating the sprites and the groups (window 2)!
@@ -190,8 +209,9 @@ while running:
                 row += 1
                 
         if keys[pygame.K_SPACE]:
-            explosion = Explosion(cross_pos[row][col])
-            explosion_group.add(explosion)          
+            tmp = list(cross_pos[row][col]) #make coordinates into a list so they can be changed (tuples can't be changed)
+            explosion = Explosion((tmp[0]+310,tmp[1]+110)) #change position of explosion to match window
+            explosion_group.add(explosion)
          
      #draw background (explosion)
     explosion_group.draw(screen)
