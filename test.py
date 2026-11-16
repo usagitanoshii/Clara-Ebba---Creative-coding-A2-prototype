@@ -73,9 +73,10 @@ class Player(pygame.sprite.Sprite):
 
                    
 #creating the sprites and groups (rainbow)! 
-moving_sprites = pygame.sprite.Group()
+moving_sprites = pygame.sprite.Group() #moving_sprites has the windows 
+p_sprites = pygame.sprite.Group() #p_sprites is for player 
 player = Player (0,-6)
-moving_sprites.add(player)          
+p_sprites.add(player)          
 
 
 #window sprites/ animation! 
@@ -94,8 +95,8 @@ class Window(pygame.sprite.Sprite):
              #reload for windows (variables)
              self.reload = random.randint(1,100)
              self.open = False
-             self.shot = False
              self.anim_done = True
+             self.location = (pos_x, pos_y)
             
              self.rect = self.image.get_rect()
              self.rect.topleft = [pos_x,pos_y]
@@ -117,9 +118,11 @@ class Window(pygame.sprite.Sprite):
         print(f"current sprite {self.current_sprite}")
         
         self.image = self.sprites[int(self.current_sprite)]
+        
     def shot(self):
         self.open = False
         self.current_sprite = 0
+        self.anim_done = False
 
             
 #creating the sprites and the groups (window 2)!
@@ -174,6 +177,7 @@ while running:
     screen.blit(clouds, (0,0))
     screen.blit(boarder, (0,0))
     moving_sprites.draw(screen)
+    p_sprites.draw(screen)
     screen.blit(cross_hair, cross_pos[row][col])          
     screen.blit(pipi, (0,0))
     
@@ -212,6 +216,12 @@ while running:
             tmp = list(cross_pos[row][col]) #make coordinates into a list so they can be changed (tuples can't be changed)
             explosion = Explosion((tmp[0]+310,tmp[1]+110)) #change position of explosion to match window
             explosion_group.add(explosion)
+            for win in moving_sprites:
+                if win.location == cross_pos[row][col]:
+                    win.shot()
+                    
+                    
+            
          
      #draw background (explosion)
     explosion_group.draw(screen)
@@ -219,7 +229,8 @@ while running:
 
     pygame.display.flip()
         
-    moving_sprites.update()    
+    moving_sprites.update() 
+    p_sprites.update()   
     
     clock.tick(60)
             
