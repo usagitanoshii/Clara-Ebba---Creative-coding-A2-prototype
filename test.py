@@ -148,10 +148,16 @@ cross_pos[1][0] = (-99,115)
 cross_pos[0][1] = (0,0)
 cross_pos[1][1] = (0,115) 
 cross_pos[0][2] = (105,0)
-cross_pos[1][2] = (105,115)
+cross_pos[1][2] = (105,115) 
 
 row = 1
 col = 1
+
+#BG music 
+pygame.mixer.music.load('bg music.mp3')
+
+#play music 
+pygame.mixer.music.play(-1, 0.0)
 
 #loading images! 
 gamebackground1 = pygame.image.load("game bg 1.png").convert() 
@@ -181,6 +187,7 @@ while running:
     screen.blit(cross_hair, cross_pos[row][col])          
     screen.blit(pipi, (0,0))
     
+    #move stars 
     stars1x -= 3
     stars2x -= 3
     
